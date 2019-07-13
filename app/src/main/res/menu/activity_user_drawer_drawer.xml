@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/icon_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/icon_profile"
+            android:title="User Profile" />
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/icon_wallet"
+            android:title="wallet" /><item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/icon_history"
+            android:title="History" />
+
+    </group>
+
+    <item android:title="Services">
+        <menu>
+            <item
+                android:id="@+id/nav_active_services"
+                android:icon="@drawable/active_services"
+                android:title="Active Services" />
+            <item
+                android:id="@+id/nav_pending_services"
+                android:icon="@drawable/pending_services"
+                android:title="Panding Services" />
+            <item
+                android:id="@+id/nav_completed_services"
+                android:icon="@drawable/icon_complete_services"
+                android:title="Completed Services" />
+        </menu>
+    </item>
+
+    <item android:title="About"
+
+        >
+        <menu>
+            <item
+                android:id="@+id/nav_rate_app"
+                android:icon="@drawable/icon_rate_app"
+                android:title="Rate App" />
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/icon_logout"
+                android:title="Logout" />
+
+        </menu>
+    </item>
+
+
+</menu>

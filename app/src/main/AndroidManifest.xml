@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.itempire.brokerapp">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/app_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".SP_Detail_Activity"></activity>
+        <activity android:name=".ActiveServicesActivity" />
+        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".ActivateAccount" />
+        <activity
+            android:name=".UserDrawerActivity"
+            android:label="@string/title_activity_user_drawer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ForgotActivity" />
+        <activity android:name=".UserCreateAccountActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SplashScreen" />
+        <activity android:name=".MainActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBrrWbn2cp0MX9kQ2EaMUV6-s9hF_lY3B4" />
+    </application>
+
+</manifest>

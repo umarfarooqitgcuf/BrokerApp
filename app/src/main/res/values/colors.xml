@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#34bf49</color>
+    <color name="colorPrimaryDark">#45d95b</color>
+    <color name="colorAccent">#ffffff</color>
+    <color name="colorWhite">#fff</color>
+    <color name="TextColorWhite">#fff</color>
+    <color name="ProfileTextColor">#A3A0A0</color>
+    <color name="CustomDesignTextColor">#A3A0A0</color>
+    <color name="colorTextPrimary">#FFFFFF</color>
+
+</resources>
