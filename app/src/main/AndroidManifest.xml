@@ -21,21 +21,23 @@
             android:name=".UserDrawerActivity"
             android:label="@string/title_activity_user_drawer"
             android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+        <activity android:name=".ForgotActivity" />
+        <activity android:name=".UserCreateAccountActivity" />
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ForgotActivity" />
-        <activity android:name=".UserCreateAccountActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashScreen" />
         <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBrrWbn2cp0MX9kQ2EaMUV6-s9hF_lY3B4" />
+            android:value="AIzaSyBUz5pGJnJ1mSNnZm-FikqvTGFDeIlCYW8" />
     </application>
 
 </manifest>

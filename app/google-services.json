@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "872462020011",
+    "firebase_url": "https://brokerapp-39e8d.firebaseio.com",
+    "project_id": "brokerapp-39e8d",
+    "storage_bucket": "brokerapp-39e8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872462020011:android:6da6f597fc89fd7f",
+        "android_client_info": {
+          "package_name": "net.itempire.brokerapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872462020011-co1d922lb0buct1i3hsaa8ot1487324k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.itempire.brokerapp",
+            "certificate_hash": "04e304f5ed53e7724b449c730061458305631ca8"
+          }
+        },
+        {
+          "client_id": "872462020011-qr1ddgamvq7pg53go6nj684f1rim85ua.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApQ3waBJ6gTD1K7Rsw_YlA7PsuhvSwVxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872462020011-qr1ddgamvq7pg53go6nj684f1rim85ua.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

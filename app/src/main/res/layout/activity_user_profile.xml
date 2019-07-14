@@ -249,7 +249,6 @@
                      tools:ignore="Deprecated" />-->
             </LinearLayout>
 
-
             <Button
                 android:id="@+id/btnUpdate"
                 android:layout_width="match_parent"
@@ -269,9 +268,7 @@
                 android:textStyle="bold"
                 android:textColor="#fff"
                 />
-
         </RelativeLayout>
     </ScrollView>
-
 
 </LinearLayout>
