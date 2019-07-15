@@ -95,18 +95,18 @@ public class LoginActivity extends AppCompatActivity {
         String type=loginSharedPrefrences.getString("type","");
         if (type.equals("user")){
             Intent intent=new Intent(this,UserDrawerActivity.class);
-           /* Intent serviceIntent = new Intent(LoginActivity.this,GetNotificationUser.class);
-            startService(serviceIntent);*/
+            Intent serviceIntent = new Intent(LoginActivity.this,GetNotificationUser.class);
+            startService(serviceIntent);
             startActivity(intent);
             finish();
         }
         else if (type.equals("SP")){
             Log.e("@@@SpDrawer", "onCreate:==");
-            /*Intent intent=new Intent(this,ServiceProviderDrawer.class);
+            Intent intent=new Intent(this,ServiceProviderDrawerActivity.class);
             Intent serviceIntent = new Intent(LoginActivity.this,GetNotificationSP.class);
             startService(serviceIntent);
             startActivity(intent);
-            finish();*/
+            finish();
         }
 
         btnForgotPassword.setOnClickListener(new View.OnClickListener() {
@@ -253,11 +253,11 @@ public class LoginActivity extends AppCompatActivity {
                             Log.e("@@@AllData", "onResponse:===" + id + "==" + name + "==" + f_name + "==" + image);
 
                         } else{
-                           /* Intent intent=new Intent(LoginActivity.this,ServiceProviderDrawer.class);
+                            Intent intent=new Intent(LoginActivity.this,ServiceProviderDrawerActivity.class);
                             Intent serviceIntent = new Intent(LoginActivity.this,GetNotificationSP.class);
                             startService(serviceIntent);
                             startActivity(intent);
-                            finish();*/
+                            finish();
 
                             String id = obj.getString("id");
                             String name = obj.getString("full_name");
@@ -269,7 +269,7 @@ public class LoginActivity extends AppCompatActivity {
                             String phone = obj.getString("phone");
                             String address = obj.getString("address");
 
-                           /* editorlogin.putString("type", "SP");
+                            editorlogin.putString("type", "SP");
                             editorlogin.apply();
                             editorlogin.commit();
 
@@ -295,7 +295,6 @@ public class LoginActivity extends AppCompatActivity {
                             mDatabase.child("User").child(sharedPreferencesFB_sp.getString("id", "")).child("SP Data").child("userStatus").setValue("offline");
                             mDatabase.child("User").child(sharedPreferencesFB_sp.getString("id", "")).child("Location").child("Latitude").setValue("31.418837");
                             mDatabase.child("User").child(sharedPreferencesFB_sp.getString("id", "")).child("Location").child("Longitude").setValue("73.079098");
-*/
 
                             Toast.makeText(LoginActivity.this, "You are loging as Service provider", Toast.LENGTH_LONG).show();
                             Log.e("@@@AllData", "onResponse:===" + id + "==" + name + "==" + f_name + "==" + image);

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".UserDrawerActivity"
+    >
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="3"
+        android:background="@android:color/transparent"
+        >
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_weight="0.5"
+            android:src="@drawable/manu"
+            />
+
+        <TextView
+            android:id="@+id/text_heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_weight="2"
+            android:layout_gravity="center"
+            android:fontFamily="@font/raleway_semi_bold"
+            android:text="Home"
+            android:textColor="#141414"
+            android:textSize="22sp" />
+        <Switch
+            android:id="@+id/simpleSwitch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"/>
+
+    </LinearLayout>
+    <FrameLayout
+        android:id="@+id/fragment_drawer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linear">
+
+        <include layout="@layout/content_service_provider_drawer" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/myLocationCustomButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="bottom|end"
+                android:backgroundTint="@android:color/white"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:src="@drawable/my_location"
+                android:layout_above="@+id/layout"
+                android:layout_alignParentRight="true"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/layout"
+                android:weightSum="2"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnaccept"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="6.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/chalo_btn_background"
+                    android:fontFamily="@font/ralewaylight"
+                    android:text="Accept Request"
+                    android:textAllCaps="true"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+                <Button
+                    android:id="@+id/btnreject"
+                    android:layout_width="0dp"
+                    android:layout_height="45dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="6.5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_background_red"
+                    android:fontFamily="@font/ralewaylight"
+                    android:text="Reject Request"
+                    android:textAllCaps="true"
+                    android:textColor="#fff"
+                    android:textSize="18sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </FrameLayout>
+
+
+</RelativeLayout>

@@ -18,6 +18,10 @@
             android:enabled="true"
             android:exported="true"></service>-->
 
+        <activity
+            android:name=".ServiceProviderDrawerActivity">
+        </activity>
+
         <activity android:name=".SP_Detail_Activity" />
         <activity android:name=".ActiveServicesActivity" />
         <activity android:name=".UserProfileActivity" />

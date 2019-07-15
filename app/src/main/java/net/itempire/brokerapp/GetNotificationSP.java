@@ -103,6 +103,10 @@ public class GetNotificationSP extends Service {
                                 .setAutoCancel(true);
                         ;
 
+                        int PROGRESS_MAX = 0;
+                        int PROGRESS_CURRENT = 0;
+                        builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, true);
+
                         NotificationManagerCompat notificationManager1 = NotificationManagerCompat.from(getApplicationContext());
                         notificationManager1.notify(1, builder.build());
 
