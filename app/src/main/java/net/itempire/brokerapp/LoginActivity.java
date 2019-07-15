@@ -205,8 +205,8 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (type.equals("user")){
                             Intent intent=new Intent(LoginActivity.this,UserDrawerActivity.class);
-                           /* Intent serviceIntent = new Intent(LoginActivity.this,GetNotificationUser.class);
-                            startService(serviceIntent);*/
+                            Intent serviceIntent = new Intent(LoginActivity.this,GetNotificationUser.class);
+                            startService(serviceIntent);
                             startActivity(intent);
                             finish();
 

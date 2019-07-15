@@ -2,6 +2,7 @@ package net.itempire.brokerapp;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -160,6 +161,9 @@ public class UserDrawerActivity extends AppCompatActivity
         loadingDialog.setMessage("Loading....");
         loadingDialog.show();
 
+
+        request_checking();
+
         String imageurl = sharedPreferences.getString("image", "").replace("\\", "");
         Picasso.get()
                 .load(imageurl)
@@ -219,6 +223,8 @@ public class UserDrawerActivity extends AppCompatActivity
                     final String SelectedLocation = getCompleteAddressString(latLng_service.latitude, latLng_service.longitude).trim();
                     final String lat = String.valueOf(latLng_service.latitude);
                     final String lng = String.valueOf(latLng_service.longitude);
+                    mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("1");
+
 
                     /*final User user = new User(mlongi, mlatti, 1, "SR", rideDetails.toString(), "", "xyz", sharedPreferences.getString("uEmail", ""), "");
                     mDatabase.child("User").child(sharedPreferences.getString("id", "")).setValue(user);*/
@@ -261,7 +267,9 @@ public class UserDrawerActivity extends AppCompatActivity
                                                                 if (objMyDrivers.child("SP Data").child("Status").getValue().toString().equals("null") || objMyDrivers.child("SP Data").child("Status").getValue().toString().equals("RC")) {
                                                                     Log.e("logOnDriverStatusIsnull", "onDataChange: ");
                                                                     if (objMyDrivers.child("SP Data").child("Occupation").getValue() != null) {
+
                                                                         if (objMyDrivers.child("SP Data").child("Occupation").getValue().toString().equals(selectedService)) {
+
                                                                             Log.e("logonDriverOccuption", "onDataChange:==" + objMyDrivers.getKey());
                                                                             LatLng myDriverLatLng = new LatLng(Double.parseDouble(objMyDrivers.child("Location").child("Latitude").getValue().toString()), Double.parseDouble(objMyDrivers.child("Location").child("Longitude").getValue().toString()));
                                                                             Log.e("$MyDriverLatLng", "onDataChange: " + myDriverLatLng);
@@ -309,12 +317,14 @@ public class UserDrawerActivity extends AppCompatActivity
                                                         myRideDetails.put("rideApiId", Boking_id);
                                                         myRideDetails.put("username", sharedPreferences.getString("name", ""));
                                                         myRideDetails.put("phone_number", sharedPreferences.getString("phone", ""));
+                                                        myRideDetails.put("image", sharedPreferences.getString("image", ""));
+
                                                     } catch (Exception e) {
                                                         Log.e("Exception", "onDataChange: " + e);
                                                     }
 
                                                     mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Status").setValue("SR");
-                                                    mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("1");
+                                                    /*mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("1");*/
                                                     mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("Status").setValue("RR");
                                                     mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("Notification").setValue("1");
                                                     mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("bookingDetails").setValue(myRideDetails.toString());
@@ -891,7 +901,6 @@ public class UserDrawerActivity extends AppCompatActivity
             }
         }
     }
-
     private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
         String strAdd = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -914,5 +923,99 @@ public class UserDrawerActivity extends AppCompatActivity
             Log.e("@ErrinInAAddress", "My Current loction address Canont get Address!");
         }
         return strAdd;
+    }
+
+    public void request_checking() {
+        mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Status").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                    String dataFB = (String) dataSnapshot.getValue().toString();
+                    if (dataFB.equals("null")) {
+                        btn_send_request.setVisibility(View.VISIBLE);
+
+                    } else if (dataFB.equals("RR")) {
+
+                    } else if (dataFB.equals("AR")) {
+                        loadingDialog.dismiss();
+                        if (bookingTime != null && changetStatusTimer != null) {
+                            bookingTime.cancel();
+                            bookingTime.purge();
+                            changetStatusTimer.cancel();
+                            changetStatusTimer.purge();
+                        }
+
+                        NotificationManager notificationManager = (NotificationManager)
+                                getSystemService(Context.
+                                        NOTIFICATION_SERVICE);
+                        notificationManager.cancelAll();
+                        mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("0");
+
+                        Intent intent=new Intent(UserDrawerActivity.this,SP_Detail_Activity.class);
+                        startActivity(intent);
+
+                        //move intent here for sp details fragment
+                    } else if (dataFB.equals("SR")) {
+                        loadingDialog.show();
+                        btn_send_request.setVisibility(View.GONE);
+                    } else if (dataFB.equals("SPR")) {
+                        loadingDialog.show();
+                        btn_send_request.setVisibility(View.GONE);
+                    }else if (dataFB.equals("SPC")) {
+                        loadingDialog.show();
+                        btn_send_request.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void sp_data(){
+        mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("bookingDetails").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getValue() != null) {
+                  String  Fbridedetails = (String) dataSnapshot.getValue().toString();
+                    Fbridedetails.replace("\"", "");
+                    Fbridedetails.replace("/", "");
+                    Log.e("tag321", Fbridedetails);
+                    if (dataSnapshot.getValue().toString().compareTo("") == 0) {
+                        // FireBaseDriverStatus=dataSnapshot.getValue().toString();
+                        Log.e("@@tag", "null value in fire base");
+                    } else {
+                        try {
+                            JSONObject objjsaon = new JSONObject(Fbridedetails);
+                            Log.e("tag@@@@@", objjsaon.toString());
+                            Log.e("DropLocation = ", objjsaon.getString("image"));
+                            Log.e("PickUpLocation = ", objjsaon.getString("sp_location"));
+                            Log.e("pickUpLat = ", objjsaon.getString("sp_lat"));
+                            Log.e("pickUpLng = ", objjsaon.getString("sp_lng"));;
+                            Log.e("riderFbid = ", objjsaon.getString("myFb"));
+
+
+
+                            double lat = objjsaon.getDouble("DropLat");
+                            double lng = objjsaon.getDouble("DropLng");
+                            LatLng drop = new LatLng(lat, lng);
+                            Log.e("@@@ManualNotDrop", "onDataChange:==" + drop);
+
+                            mMap.addMarker(new MarkerOptions().position(drop).title("Drop location"));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(drop, 15));
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 }

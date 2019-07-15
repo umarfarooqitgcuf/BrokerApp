@@ -13,16 +13,19 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SP_Detail_Activity"></activity>
+       <!-- <service
+            android:name=".MYFireBaseMessageingService"
+            android:enabled="true"
+            android:exported="true"></service>-->
+
+        <activity android:name=".SP_Detail_Activity" />
         <activity android:name=".ActiveServicesActivity" />
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".ActivateAccount" />
         <activity
             android:name=".UserDrawerActivity"
             android:label="@string/title_activity_user_drawer"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ForgotActivity" />
         <activity android:name=".UserCreateAccountActivity" />
         <activity android:name=".LoginActivity" />
@@ -38,6 +41,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBUz5pGJnJ1mSNnZm-FikqvTGFDeIlCYW8" />
+
+        <service android:name=".MYFireBaseMessageingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".GetNotificationUser"
+            android:enabled="true"
+            android:exported="false"></service>
+        <service
+            android:name=".GetNotificationSP"
+            android:enabled="true"
+            android:exported="false" />
+
     </application>
 
 </manifest>
