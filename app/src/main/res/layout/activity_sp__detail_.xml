@@ -20,9 +20,7 @@
     android:background="#fff"
     android:clickable="true">
 
-    <include
-        layout="@layout/toolbar"
-        />
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -70,7 +68,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:fontFamily="@font/ralewaylight"
-                    android:text="Name  "
+                    android:text="Name:  "
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/ProfileTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -90,8 +89,15 @@
                     android:fontFamily="@font/ralewaylight"
 
                     />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    />
 
             </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,7 +114,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/ralewaylight"
-                    android:text="Email  "
+                    android:text="Email:  "
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/ProfileTextColor"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -126,6 +133,12 @@
                     android:hint="Enter Email"
                     android:textSize="16sp"
                     android:fontFamily="@font/ralewaylight"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimaryDark"
                     />
             </LinearLayout>
 
@@ -145,7 +158,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/ralewaylight"
-                    android:text="Phone "
+                    android:text="Phone: "
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/ProfileTextColor"
                     android:textSize="18dp"
                     android:textStyle="bold" />
@@ -163,6 +177,12 @@
                     android:textSize="16sp"
                     android:hint="Enter Mobile Number"
                     android:fontFamily="@font/ralewaylight"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimaryDark"
+                    />
             </LinearLayout>
 
 
@@ -183,7 +203,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/ralewaylight"
-                    android:text="Address  "
+                    android:text="Address:  "
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/ProfileTextColor"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -201,17 +222,36 @@
                     android:textSize="16sp"
                     android:hint="Enter Address"
                     android:fontFamily="@font/ralewaylight" />
-            </LinearLayout>
-
-
-                <Button
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="50dp"
-                    android:layout_below="@+id/layout4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Check on map"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimaryDark"
                     />
+
+            </LinearLayout>
+            <TextView
+                android:id="@+id/location_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/ralewaylight"
+                android:text="Services Provider Location: "
+                android:layout_below="@+id/layout4"
+                android:textColor="@color/ProfileTextColor"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/move_map"
+                android:layout_centerHorizontal="true"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/location_text"
+                android:src="@drawable/map_image"
+                />
 
         </RelativeLayout>
     </ScrollView>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/layout_fare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stylec"
+        android:orientation="vertical">
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Service Charges "
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:layout_weight="0.75"
+                android:textSize="20dp"/>
+            <TextView
+                android:id="@+id/text_ride_fare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="FARE"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="PAYABLE Charges "
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:layout_weight="0.75"
+                android:textSize="20dp"/>
+            <TextView
+                android:id="@+id/text_payable_fare"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="FARE"
+                android:textAlignment="center"
+                android:textSize="25dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_faretxt"
+        android:layout_below="@+id/layout_fare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/stylec"
+        android:layout_marginTop="20dp">
+        <TextView
+            android:textColor="#34bf49"
+            android:id="@+id/txt_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Give reviews for this Service Provider "
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:textSize="17dp"/>
+
+
+
+
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/profile"
+        android:layout_below="@+id/layout_faretxt"
+        />
+
+
+
+    <LinearLayout
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true">
+        <RatingBar
+
+            android:id="@+id/myRatingBar"
+            style="?android:attr/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_submit_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
+        android:background="@drawable/styleyellow"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textAllCaps="false"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        />
+</RelativeLayout>

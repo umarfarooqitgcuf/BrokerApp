@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
@@ -13,15 +15,16 @@
         android:roundIcon="@mipmap/app_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-       <!-- <service
+        <activity android:name=".CompletedServicesActivity" />
+        <activity android:name=".UserWallet" />
+        <activity android:name=".USER_Detail_Activity" />
+        <!--
+         <service
             android:name=".MYFireBaseMessageingService"
             android:enabled="true"
-            android:exported="true"></service>-->
-
-        <activity
-            android:name=".ServiceProviderDrawerActivity">
-        </activity>
-
+            android:exported="true"></service>
+        -->
+        <activity android:name=".ServiceProviderDrawerActivity" />
         <activity android:name=".SP_Detail_Activity" />
         <activity android:name=".ActiveServicesActivity" />
         <activity android:name=".UserProfileActivity" />
@@ -29,7 +32,7 @@
         <activity
             android:name=".UserDrawerActivity"
             android:label="@string/title_activity_user_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ForgotActivity" />
         <activity android:name=".UserCreateAccountActivity" />
         <activity android:name=".LoginActivity" />
@@ -54,12 +57,13 @@
         <service
             android:name=".GetNotificationUser"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".GetNotificationSP"
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name=".Reviews" />
     </application>
 
 </manifest>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+    <RelativeLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#dfe1e2"
+        android:layout_margin="5dp"
+        >
+
+        <TextView
+            android:id="@+id/customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer Name"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/ralewaylight"
+            android:textSize="18sp"
+            android:textColor="#311b87"/>
+
+        <TextView
+            android:id="@+id/Customer_Name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint="Customer Name"
+            android:fontFamily="@font/ralewaylight"
+            android:layout_marginTop="20dp"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:layout_toRightOf="@+id/customer"
+            android:layout_centerVertical="true"
+            android:textColorHint="#311b87"
+            />
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/linear1"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:layout_below="@id/linear"
+        >
+
+        <TextView
+            android:id="@+id/cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Collect amount"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:fontFamily="@font/ralewaylight"
+            android:textSize="20sp"
+            android:textColor="#311b87"/>
+        <TextView
+            android:id="@+id/txt_fare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:hint="Fare"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/ralewaylight"
+            android:textStyle="bold"
+            android:textColor="#686666"
+            android:textSize="20sp"
+            android:layout_toRightOf="@+id/cash"
+            android:layout_centerVertical="true"
+            android:textColorHint="#311b87"
+            />
+    </RelativeLayout>
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear1"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/ralewaylight"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:inputType="number"
+        android:textAlignment="center"
+        />
+
+    <RelativeLayout
+        android:id="@+id/linear2"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/amount"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        >
+
+      <!--
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/styleb"
+            android:fontFamily="@font/ralewaylight"
+            android:text="Cancel"
+            android:textColor="#311b87"
+            android:textSize="18sp"
+
+            />-->
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/styleyellow"
+            android:fontFamily="@font/ralewaylight"
+            android:layout_centerInParent="true"
+            android:text="Collect"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

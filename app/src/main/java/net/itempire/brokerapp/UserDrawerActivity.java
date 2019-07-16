@@ -10,6 +10,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.LayerDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -36,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -117,7 +120,8 @@ public class UserDrawerActivity extends AppCompatActivity
     TimerTask changeStatus;
 
     private DatabaseReference mDatabase;
-    SharedPreferences sharedPreferencesFB_user, sharedPreferences;
+    SharedPreferences sharedPreferencesFB_user, sharedPreferences,sharedRideData;
+    SharedPreferences.Editor editorride_data;
 
     HashMap<String, String> HashMapService = new HashMap<String, String>();
     HashMap<String, String> HshMapServiceCharges = new HashMap<String, String>();
@@ -146,6 +150,8 @@ public class UserDrawerActivity extends AppCompatActivity
         selectDropLocation = (TextView) findViewById(R.id.pickup);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        sharedRideData=getSharedPreferences("rideData",MODE_PRIVATE);
+        editorride_data=sharedRideData.edit();
         sharedPreferencesFB_user = getSharedPreferences("FBDetailsUSER", MODE_PRIVATE);
         sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
 
@@ -309,15 +315,16 @@ public class UserDrawerActivity extends AppCompatActivity
                                                         myRideDetails.put("PickUpLocation", getCompleteAddressString(latLng_service.latitude, latLng_service.longitude));
                                                         myRideDetails.put("PickUpLat", lat);
                                                         myRideDetails.put("PickUpLng", lng);
-                                                        /*myRideDetails.put("DropLocation", getCompleteAddressString(dropLatLng.latitude, dropLatLng.longitude));
-                                                        myRideDetails.put("DropLat", dropLatLng.latitude);
-                                                        myRideDetails.put("DropLng", dropLatLng.longitude);*/
-                                                        myRideDetails.put("userId", sharedPreferences.getString("email", ""));
-                                                        myRideDetails.put("myFb", sharedPreferences.getString("id", ""));
+                                                        myRideDetails.put("myFb", sharedPreferencesFB_user.getString("id",""));
+                                                        myRideDetails.put("userEmail", sharedPreferences.getString("email", ""));
+                                                        myRideDetails.put("userId", sharedPreferences.getString("id", ""));
                                                         myRideDetails.put("rideApiId", Boking_id);
                                                         myRideDetails.put("username", sharedPreferences.getString("name", ""));
                                                         myRideDetails.put("phone_number", sharedPreferences.getString("phone", ""));
                                                         myRideDetails.put("image", sharedPreferences.getString("image", ""));
+
+                                                        editorride_data.putString("Booking_id",Boking_id);
+                                                        editorride_data.apply();
 
                                                     } catch (Exception e) {
                                                         Log.e("Exception", "onDataChange: " + e);
@@ -653,8 +660,11 @@ public class UserDrawerActivity extends AppCompatActivity
            Intent intent = new Intent(UserDrawerActivity.this,UserProfileActivity.class);
            startActivity(intent);
         } else if (id == R.id.nav_wallet) {
+            Intent intent=new Intent(UserDrawerActivity.this,UserWallet.class);
+            startActivity(intent);
 
         }  else if (id == R.id.nav_history) {
+
 
         } else if (id == R.id.nav_active_services) {
             Intent intent = new Intent(UserDrawerActivity.this,ActiveServicesActivity.class);
@@ -665,8 +675,10 @@ public class UserDrawerActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_completed_services) {
 
+
         }
         else if (id == R.id.nav_rate_app) {
+
 
         }
         else if (id == R.id.nav_logout) {
@@ -943,6 +955,8 @@ public class UserDrawerActivity extends AppCompatActivity
                             bookingTime.purge();
                             changetStatusTimer.cancel();
                             changetStatusTimer.purge();
+                            sp_data();
+
                         }
 
                         NotificationManager notificationManager = (NotificationManager)
@@ -955,6 +969,14 @@ public class UserDrawerActivity extends AppCompatActivity
                         startActivity(intent);
 
                         //move intent here for sp details fragment
+                    } else if (dataFB.equals("WS")) {
+                        loadingDialog.show();
+
+                        btn_send_request.setVisibility(View.GONE);
+                        Intent intent=new Intent(UserDrawerActivity.this,Reviews.class);
+                        startActivity(intent);
+                        finish();
+
                     } else if (dataFB.equals("SR")) {
                         loadingDialog.show();
                         btn_send_request.setVisibility(View.GONE);
@@ -964,6 +986,16 @@ public class UserDrawerActivity extends AppCompatActivity
                     }else if (dataFB.equals("SPC")) {
                         loadingDialog.show();
                         btn_send_request.setVisibility(View.GONE);
+
+                        SharedPreferences sharedPreferencesSPData = getSharedPreferences("SpData",MODE_PRIVATE);
+                        String sp_lat=sharedPreferencesSPData.getString("sp_lat","");
+                        String sp_lng=sharedPreferencesSPData.getString("sp_lng","");
+                        LatLng latLng=new LatLng(Double.valueOf(sp_lat),Double.valueOf(sp_lng));
+
+                        mMap.addMarker(new MarkerOptions().position(latLng).title("Your Service Provider Location"));
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17), 2000, null);
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
+
                     }
                 }
             }

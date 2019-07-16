@@ -5,8 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActiveServicesActivity">
-    <include
+   <!-- <include
         layout="@layout/custom_design_active_services"
+        />-->
+
+    <TextView
+        android:id="@+id/text_no_pending_requests"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Active Services"
+        android:textSize="30dp"
+        android:textColor="#c4c1c1"
         />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_accepted_request"
+        android:layout_marginTop="5dp">
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>

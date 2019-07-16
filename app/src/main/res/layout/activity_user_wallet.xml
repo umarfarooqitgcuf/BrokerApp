@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    >
+
+    <include
+        layout="@layout/app_bar_layout"
+        android:id="@+id/wallet_app_bar">
+
+    </include>
+
+    <TextView
+        android:id="@+id/current_payment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sty"
+        android:text="Current Payment Method"
+        android:textStyle="bold"
+        android:textColor="#000"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:layout_below="@+id/wallet_app_bar"/>
+    <TextView
+        android:id="@+id/cash"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cash"
+        android:drawableLeft="@drawable/cash"
+        android:drawablePadding="20dp"
+        android:textColor="#000"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:layout_below="@+id/current_payment"/>
+    <TextView
+        android:id="@+id/credit_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Credit Card"
+        android:clickable="true"
+        android:drawableRight="@drawable/arrow_right"
+        android:drawableLeft="@drawable/ic_credit_card_black_24dp"
+        android:drawablePadding="20dp"
+        android:textColor="#000"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:layout_below="@+id/cash"/>
+    <TextView
+        android:id="@+id/credit_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Credit"
+        android:textStyle="bold"
+        android:clickable="true"
+        android:textColor="#000"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:background="@drawable/sty"
+        android:layout_below="@+id/credit_card"/>
+    <TextView
+        android:id="@+id/credit_use"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Your Account Balance"
+        android:clickable="true"
+        android:textColor="#000"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:layout_below="@+id/credit_id"/>
+    <TextView
+        android:id="@+id/user_credit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User's Amount"
+        android:clickable="true"
+        android:drawableLeft="@drawable/cash"
+        android:drawablePadding="20dp"
+        android:textColor="#000"
+        android:fontFamily="@font/ralewaylight"
+        android:textSize="18sp"
+        android:padding="15dp"
+        android:layout_below="@+id/credit_use"/>
+
+
+
+</RelativeLayout>

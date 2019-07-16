@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/ratingBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerInParent="true"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical">
+
+    <TextView
+        android:text="Please Give Rating To Service Provider."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:textSize="13sp"
+        android:textColor="#34bf49"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        />
+    <RatingBar
+        android:layout_gravity="center"
+        android:id="@+id/myRatingBar"
+        style="?android:attr/rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        />
+    <Button
+        android:id="@+id/submit_rating"
+        android:layout_marginTop="10dp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="#ffffff"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/raleway_semi_bold"
+        android:background="@drawable/styleyellow"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        />
+</LinearLayout>

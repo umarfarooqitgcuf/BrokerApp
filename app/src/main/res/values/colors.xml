@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#34bf49</color>
     <color name="colorPrimaryDark">#45d95b</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#34bf49</color>
     <color name="colorWhite">#fff</color>
     <color name="TextColorWhite">#fff</color>
     <color name="ProfileTextColor">#A3A0A0</color>
