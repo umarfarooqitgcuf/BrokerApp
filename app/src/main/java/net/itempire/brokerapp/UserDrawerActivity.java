@@ -93,7 +93,7 @@ public class UserDrawerActivity extends AppCompatActivity
     public double mlatti, mlongi;
     public LocationManager locationManager;
     SupportMapFragment mapFragment;
-    ImageView myLocationButton,navigationButton;
+    ImageView myLocationButton, navigationButton;
     private GoogleApiClient googleApiClient;
     Button btn_send_request;
 
@@ -103,7 +103,7 @@ public class UserDrawerActivity extends AppCompatActivity
     String selectedService;
     int COUNTER = 0;
     ProgressDialog loadingDialog;
-    TextView pickup,selectDropLocation;
+    TextView pickup, selectDropLocation;
     CircleImageView imageView;
     TextView user_name;
     public Double longitude;
@@ -120,7 +120,7 @@ public class UserDrawerActivity extends AppCompatActivity
     TimerTask changeStatus;
 
     private DatabaseReference mDatabase;
-    SharedPreferences sharedPreferencesFB_user, sharedPreferences,sharedRideData;
+    SharedPreferences sharedPreferencesFB_user, sharedPreferences, sharedRideData;
     SharedPreferences.Editor editorride_data;
 
     HashMap<String, String> HashMapService = new HashMap<String, String>();
@@ -134,7 +134,7 @@ public class UserDrawerActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_drawer);
-       // Toolbar toolbar = findViewById(R.id.toolbar);
+        // Toolbar toolbar = findViewById(R.id.toolbar);
       /*  setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);*/
 
@@ -142,7 +142,7 @@ public class UserDrawerActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);
         myLocationButton = findViewById(R.id.myLocationCustomButton);
-        btn_send_request = (Button)findViewById(R.id.btnConfirmPickUp);
+        btn_send_request = (Button) findViewById(R.id.btnConfirmPickUp);
         //pickup = (TextView) findViewById(R.id.pickup);
         imageView = (CircleImageView) headerView.findViewById(R.id.imageView);
         user_name = (TextView) headerView.findViewById(R.id.txt_name);
@@ -150,8 +150,8 @@ public class UserDrawerActivity extends AppCompatActivity
         selectDropLocation = (TextView) findViewById(R.id.pickup);
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        sharedRideData=getSharedPreferences("rideData",MODE_PRIVATE);
-        editorride_data=sharedRideData.edit();
+        sharedRideData = getSharedPreferences("rideData", MODE_PRIVATE);
+        editorride_data = sharedRideData.edit();
         sharedPreferencesFB_user = getSharedPreferences("FBDetailsUSER", MODE_PRIVATE);
         sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
 
@@ -176,7 +176,7 @@ public class UserDrawerActivity extends AppCompatActivity
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.mipmap.ic_launcher_round)
                 .into(imageView);
-        user_name.setText(sharedPreferences.getString("name",""));
+        user_name.setText(sharedPreferences.getString("name", ""));
 
         service = new ArrayList<String>();
         service.add("Select Your Service");
@@ -298,187 +298,205 @@ public class UserDrawerActivity extends AppCompatActivity
                                             bookingTime = new Timer();
                                             driver_i = 0;
                                             returnedValue = true;
-                                            int loopCondition = listOfDriversDistances.size();
-                                            if (loopCondition > 0 && driver_i <= 4) {
+                                            timerTask = new TimerTask() {
+                                                @Override
+                                                public void run() {
 
-                                                if (returnedValue && Boking_id != null) {
-                                                    Log.e("@LoopRunning..?", "onDataChange: True");
-                                                    int min = listOfDriversDistances.indexOf(Collections.min(listOfDriversDistances));
-                                                    listOfDriversDistances.remove(min);
-                                                    driversToBook.add(listOfDrivers.get(min));
-                                                    Log.e("$ClosestDriver", "run: " + listOfDrivers.get(min));
-                                                    listOfDrivers.remove(min);
-                                                    Log.e("$BookDrivers", "onDataChange: " + driversToBook.get(driver_i));
 
-                                                    final JSONObject myRideDetails = new JSONObject();
-                                                    try {
-                                                        myRideDetails.put("PickUpLocation", getCompleteAddressString(latLng_service.latitude, latLng_service.longitude));
-                                                        myRideDetails.put("PickUpLat", lat);
-                                                        myRideDetails.put("PickUpLng", lng);
-                                                        myRideDetails.put("myFb", sharedPreferencesFB_user.getString("id",""));
-                                                        myRideDetails.put("userEmail", sharedPreferences.getString("email", ""));
-                                                        myRideDetails.put("userId", sharedPreferences.getString("id", ""));
-                                                        myRideDetails.put("rideApiId", Boking_id);
-                                                        myRideDetails.put("username", sharedPreferences.getString("name", ""));
-                                                        myRideDetails.put("phone_number", sharedPreferences.getString("phone", ""));
-                                                        myRideDetails.put("image", sharedPreferences.getString("image", ""));
+                                                    int loopCondition = listOfDriversDistances.size();
 
-                                                        editorride_data.putString("Booking_id",Boking_id);
-                                                        editorride_data.apply();
+                                                    if (loopCondition > 0 && driver_i <= 4) {
 
-                                                    } catch (Exception e) {
-                                                        Log.e("Exception", "onDataChange: " + e);
-                                                    }
+                                                        if (returnedValue && Boking_id != null) {
+                                                            Log.e("@LoopRunning..?", "onDataChange: True");
+                                                            int min = listOfDriversDistances.indexOf(Collections.min(listOfDriversDistances));
+                                                            listOfDriversDistances.remove(min);
+                                                            driversToBook.add(listOfDrivers.get(min));
+                                                            Log.e("$ClosestDriver", "run: " + listOfDrivers.get(min));
+                                                            listOfDrivers.remove(min);
+                                                            Log.e("$BookDrivers", "onDataChange: " + driversToBook.get(driver_i));
 
-                                                    mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Status").setValue("SR");
-                                                    /*mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("1");*/
-                                                    mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("Status").setValue("RR");
-                                                    mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("Notification").setValue("1");
-                                                    mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("bookingDetails").setValue(myRideDetails.toString());
+                                                            final JSONObject myRideDetails = new JSONObject();
+                                                            try {
+                                                                myRideDetails.put("PickUpLocation", getCompleteAddressString(latLng_service.latitude, latLng_service.longitude));
+                                                                myRideDetails.put("PickUpLat", lat);
+                                                                myRideDetails.put("PickUpLng", lng);
+                                                                myRideDetails.put("myFb", sharedPreferencesFB_user.getString("id", ""));
+                                                                myRideDetails.put("userEmail", sharedPreferences.getString("email", ""));
+                                                                myRideDetails.put("userId", sharedPreferences.getString("id", ""));
+                                                                myRideDetails.put("rideApiId", Boking_id);
+                                                                myRideDetails.put("username", sharedPreferences.getString("name", ""));
+                                                                myRideDetails.put("phone_number", sharedPreferences.getString("phone", ""));
+                                                                myRideDetails.put("image", sharedPreferences.getString("image", ""));
 
-                                                    COUNTER = 0;
-                                                    changetStatusTimer = new Timer();
-                                                    changeStatus = new TimerTask() {
-                                                        @Override
-                                                        public void run() {
+                                                                editorride_data.putString("Booking_id", Boking_id);
+                                                                editorride_data.apply();
+
+                                                            } catch (Exception e) {
+                                                                Log.e("Exception", "onDataChange: " + e);
+                                                            }
+
+                                                            mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Status").setValue("SR");
+                                                            /*mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("1");*/
+                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("Status").setValue("RR");
+                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("Notification").setValue("1");
+                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("SP Data").child("bookingDetails").setValue(myRideDetails.toString());
+
+                                                            COUNTER = 0;
+                                                            changetStatusTimer = new Timer();
+                                                            changeStatus = new TimerTask() {
+                                                                @Override
+                                                                public void run() {
+                                                                    new Thread() {
+                                                                        public void run() {
+                                                                            UserDrawerActivity.this.runOnUiThread(new Runnable() {
+                                                                                @Override
+                                                                                public void run() {
+                                                                                    COUNTER++;
+                                                                                    mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Status").addValueEventListener(new ValueEventListener() {
+                                                                                        @Override
+                                                                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                                            Log.e("@@Index", "onDataChange: " + driver_i + " COUNTER == " + COUNTER);
+                                                                                            if (dataSnapshot.getValue() != null) {
+                                                                                                if (COUNTER == 10) {
+                                                                                                    if (dataSnapshot.getValue().toString().equals("SR")) {
+                                                                                                        returnedValue = true;
+                                                                                                        int old_i = 0;
+                                                                                                        if (driver_i == 0) {
+                                                                                                            Log.e("@@@Counter", "onDataChange:===");
+                                                                                                            /*mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("driverStatus").setValue("null");
+                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("rideDetails").setValue("null");*/
+                                                                                                            changetStatusTimer.cancel();
+                                                                                                            changetStatusTimer.purge();
+                                                                                                        }
+                                                                                                        if (driver_i > 0 || driversToBook.size() - 1 == driver_i) {
+                                                                                                            Log.e("@@@Counter1", "onDataChange:===");
+                                                                                                            old_i = driver_i - 1;
+                                                                                                            mDatabase.child("User").child(driversToBook.get(old_i)).child("SP Data").child("Status").setValue("null");
+                                                                                                            mDatabase.child("User").child(driversToBook.get(old_i)).child("SP Data").child("bookingDetails").setValue("null");
+                                                                                                            changetStatusTimer.cancel();
+                                                                                                            changetStatusTimer.purge();
+                                                                                                        }
+                                                                                                        //Below Code set null values to last driver if he too did't accept request.
+                                                                                                        /*if (dataSnapshot.getValue().toString().equals("null")) {
+                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("driverStatus").setValue("null");
+                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("rideDetails").setValue("null");
+                                                                                                        }*/
+                                                                                                        COUNTER = 0;
+                                                                                                    } else {
+                                                                                                        if (dataSnapshot.getValue().toString().equals("null")) {
+                                                                                                            Log.e("@@@Counter3", "onDataChange:===");
+                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("Status").setValue("null");
+                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("bookingDetails").setValue("null");
+                                                                                                        }
+                                                                                                        COUNTER = 0;
+                                                                                                        returnedValue = false;
+                                                                                                        changetStatusTimer.cancel();
+                                                                                                        changetStatusTimer.purge();
+                                                                                                    }
+                                                                                                } else {
+                                                                                                    if (dataSnapshot.getValue().toString().equals("null")) {
+                                                                                                        returnedValue = false;
+                                                                                                        COUNTER = 0;
+                                                                                                        mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("Status").setValue("null");
+                                                                                                        mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("bookingDetails").setValue("null");
+                                                                                                        changetStatusTimer.cancel();
+                                                                                                        changetStatusTimer.purge();
+                                                                                                    }
+                                                                                                }
+
+                                                                                            }
+
+                                                                                        }
+
+                                                                                        @Override
+                                                                                        public void onCancelled(DatabaseError databaseError) {
+
+                                                                                        }
+                                                                                    });
+
+                                                                                }
+                                                                            });
+                                                                        }
+
+                                                                    }.start();
+                                                                }
+                                                            };
+                                                            changetStatusTimer.scheduleAtFixedRate(changeStatus, 0, 1000);
+                                                            driver_i++;
+                                                        } else {
+                                                            //break;
+                                                            listOfDrivers.clear();
+                                                            listOfDriversDistances.clear();
+                                                            driversToBook.clear();
                                                             new Thread() {
                                                                 public void run() {
                                                                     UserDrawerActivity.this.runOnUiThread(new Runnable() {
                                                                         @Override
                                                                         public void run() {
-                                                                            COUNTER++;
-                                                                            mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Status").addValueEventListener(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                                                                    Log.e("@@Index", "onDataChange: " + driver_i + " COUNTER == " + COUNTER);
-                                                                                    if (dataSnapshot.getValue() != null) {
-                                                                                        if (COUNTER == 10) {
-                                                                                            if (dataSnapshot.getValue().toString().equals("SR")) {
-                                                                                                returnedValue = true;
-                                                                                                int old_i = 0;
-                                                                                                if (driver_i == 0) {
-                                                                                                    Log.e("@@@Counter", "onDataChange:===");
-                                                                                                            /*mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("driverStatus").setValue("null");
-                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("rideDetails").setValue("null");*/
-                                                                                                    changetStatusTimer.cancel();
-                                                                                                    changetStatusTimer.purge();
-                                                                                                }
-                                                                                                if (driver_i > 0 || driversToBook.size() - 1 == driver_i) {
-                                                                                                    Log.e("@@@Counter1", "onDataChange:===");
-                                                                                                    old_i = driver_i - 1;
-                                                                                                    mDatabase.child("User").child(driversToBook.get(old_i)).child("SP Data").child("Status").setValue("null");
-                                                                                                    mDatabase.child("User").child(driversToBook.get(old_i)).child("SP Data").child("bookingDetails").setValue("null");
-                                                                                                    changetStatusTimer.cancel();
-                                                                                                    changetStatusTimer.purge();
-                                                                                                }
-                                                                                                //Below Code set null values to last driver if he too did't accept request.
-                                                                                                        /*if (dataSnapshot.getValue().toString().equals("null")) {
-                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("driverStatus").setValue("null");
-                                                                                                            mDatabase.child("User").child(driversToBook.get(driver_i)).child("Driver Data").child("rideDetails").setValue("null");
-                                                                                                        }*/
-                                                                                                COUNTER = 0;
-                                                                                            } else {
-                                                                                                if (dataSnapshot.getValue().toString().equals("null")) {
-                                                                                                    Log.e("@@@Counter3", "onDataChange:===");
-                                                                                                    mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("Status").setValue("null");
-                                                                                                    mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("bookingDetails").setValue("null");
-                                                                                                }
-                                                                                                COUNTER = 0;
-                                                                                                returnedValue = false;
-                                                                                                changetStatusTimer.cancel();
-                                                                                                changetStatusTimer.purge();
-                                                                                            }
-                                                                                        } else {
-                                                                                            if (dataSnapshot.getValue().toString().equals("null")) {
-                                                                                                returnedValue = false;
-                                                                                                COUNTER = 0;
-                                                                                                mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("Status").setValue("null");
-                                                                                                mDatabase.child("User").child(driversToBook.get(driver_i - 1)).child("SP Data").child("bookingDetails").setValue("null");
-                                                                                                changetStatusTimer.cancel();
-                                                                                                changetStatusTimer.purge();
-                                                                                            }
-                                                                                        }
-
-                                                                                    }
-
-                                                                                }
-
-                                                                                @Override
-                                                                                public void onCancelled(DatabaseError databaseError) {
-
-                                                                                }
-                                                                            });
-
+                                                                            //mMap.clear();
                                                                         }
                                                                     });
                                                                 }
-
-                                                            }.start();
+                                                            };
+                                                            bookingTime.cancel();
+                                                            bookingTime.purge();
                                                         }
-                                                    };
-                                                    changetStatusTimer.scheduleAtFixedRate(changeStatus, 0, 1000);
-                                                    driver_i++;
-                                                } else {
-                                                    //break;
-                                                    listOfDrivers.clear();
-                                                    listOfDriversDistances.clear();
-                                                    driversToBook.clear();
-                                                    new Thread() {
-                                                        public void run() {
-                                                            UserDrawerActivity.this.runOnUiThread(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    //mMap.clear();
-                                                                }
-                                                            });
-                                                        }
-                                                    };
-                                                    bookingTime.cancel();
-                                                    bookingTime.purge();
-                                                }
-                                            } else {
-                                                //if no driver accepts your request
-                                                new Thread() {
-                                                    public void run() {
-                                                        UserDrawerActivity.this.runOnUiThread(new Runnable() {
+                                                    } else {
+                                                        //if no driver accepts your request
+                                                        new Thread() {
                                                             public void run() {
-                                                                //Do your UI operations like dialog opening or Toast here
-                                                                Toast.makeText(UserDrawerActivity.this, "No Service Provider found for you yet.", Toast.LENGTH_SHORT).show();
+                                                                UserDrawerActivity.this.runOnUiThread(new Runnable() {
+                                                                    public void run() {
+                                                                        //Do your UI operations like dialog opening or Toast here
+                                                                        Toast.makeText(UserDrawerActivity.this, "No Service Provider found for you yet.", Toast.LENGTH_SHORT).show();
+                                                                        loadingDialog.dismiss();
+                                                                        btn_send_request.setVisibility(View.VISIBLE);
                                                                 /*dropLatLng = null;
                                                                 selectVehicle.setVisibility(View.VISIBLE);
                                                                 spinnerLayout.setVisibility(View.VISIBLE);*/
-                                                                mMap.clear();
+                                                                        mMap.clear();
+                                                                    }
+                                                                });
                                                             }
-                                                        });
-                                                    }
-                                                }.start();
-                                                //Check if no driver has accepted my requested and changes my statuses to null
+                                                        }.start();
+                                                        //Check if no driver has accepted my requested and changes my statuses to null
                                                 /*editor.putString("myFbStatus", null);
                                                 editor.putString("ride_id", null);
                                                 editor.apply();*/
-                                                Boking_id = null;
-                                                mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("SpFbId").addListenerForSingleValueEvent(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        if (dataSnapshot.getValue() != null) {
-                                                            if (dataSnapshot.getValue().toString().equals("")) {
-                                                                mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("userStatus").setValue("null");
-                                                                mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("rideDetails").setValue("null");
+                                                        Boking_id = null;
+                                                        mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("SpFbId").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                if (dataSnapshot.getValue() != null) {
+                                                                    if (dataSnapshot.getValue().toString().equals("")) {
+                                                                        mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("userStatus").setValue("null");
+                                                                        mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("rideDetails").setValue("null");
                                                                 /*finish();
                                                                 startActivity(myIntent);*/
 
+                                                                    }
+                                                                }
                                                             }
-                                                        }
+
+                                                            @Override
+                                                            public void onCancelled(DatabaseError databaseError) {
+
+                                                            }
+                                                        });
+
+                                                        bookingTime.cancel();
+                                                        bookingTime.purge();
                                                     }
+                                                }
+                                            };
+                                            if (!listOfDriversDistances.isEmpty()) {
 
-                                                    @Override
-                                                    public void onCancelled(DatabaseError databaseError) {
 
-                                                    }
-                                                });
+                                                bookingTime.scheduleAtFixedRate(timerTask, 0, 11000);
 
-                                                bookingTime.cancel();
-                                                bookingTime.purge();
+
+
                                             }
                                         }
 
@@ -566,7 +584,7 @@ public class UserDrawerActivity extends AppCompatActivity
 
                 } else {
 
-                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+                    if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                         /*locationManager.setTestProviderEnabled(LocationManager.GPS_PROVIDER, true);
                         locationManager.setTestProviderStatus(LocationManager.GPS_PROVIDER,
                                 LocationProvider.AVAILABLE,
@@ -657,42 +675,38 @@ public class UserDrawerActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             // Handle the camera action
         } else if (id == R.id.nav_profile) {
-           Intent intent = new Intent(UserDrawerActivity.this,UserProfileActivity.class);
-           startActivity(intent);
+            Intent intent = new Intent(UserDrawerActivity.this, UserProfileActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_wallet) {
-            Intent intent=new Intent(UserDrawerActivity.this,UserWallet.class);
+            Intent intent = new Intent(UserDrawerActivity.this, UserWallet.class);
             startActivity(intent);
 
-        }  else if (id == R.id.nav_history) {
+        } else if (id == R.id.nav_history) {
 
 
         } else if (id == R.id.nav_active_services) {
-            Intent intent = new Intent(UserDrawerActivity.this,ActiveServicesActivity.class);
+            Intent intent = new Intent(UserDrawerActivity.this, ActiveServicesActivity.class);
             startActivity(intent);
-        }
-        else if (id == R.id.nav_pending_services) {
+        } else if (id == R.id.nav_pending_services) {
 
-        }
-        else if (id == R.id.nav_completed_services) {
+        } else if (id == R.id.nav_completed_services) {
 
 
-        }
-        else if (id == R.id.nav_rate_app) {
+        } else if (id == R.id.nav_rate_app) {
 
 
-        }
-        else if (id == R.id.nav_logout) {
-            SharedPreferences loginSharedPrefrences=getSharedPreferences("loginDetail",MODE_PRIVATE);
-            SharedPreferences.Editor editor=loginSharedPrefrences.edit();
+        } else if (id == R.id.nav_logout) {
+            SharedPreferences loginSharedPrefrences = getSharedPreferences("loginDetail", MODE_PRIVATE);
+            SharedPreferences.Editor editor = loginSharedPrefrences.edit();
             editor.clear();
             editor.apply();
 
-            sharedPreferences = getSharedPreferences("userData",MODE_PRIVATE);
-            SharedPreferences.Editor editor_user_data=sharedPreferences.edit();
+            sharedPreferences = getSharedPreferences("userData", MODE_PRIVATE);
+            SharedPreferences.Editor editor_user_data = sharedPreferences.edit();
             editor_user_data.clear();
             editor.apply();
 
-            Intent intent=new Intent(UserDrawerActivity.this,LoginActivity.class);
+            Intent intent = new Intent(UserDrawerActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
         }
@@ -713,7 +727,8 @@ public class UserDrawerActivity extends AppCompatActivity
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 15));
 
     }
-    public void getServices(){
+
+    public void getServices() {
         StringRequest StringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -766,6 +781,7 @@ public class UserDrawerActivity extends AppCompatActivity
         RequestQueue RequestQueue = Volley.newRequestQueue(UserDrawerActivity.this);
         RequestQueue.add(StringRequest);
     }
+
     public void onMyLocationUpdate() {
         Log.e("@@@permission", "null123");
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
@@ -913,6 +929,7 @@ public class UserDrawerActivity extends AppCompatActivity
             }
         }
     }
+
     private String getCompleteAddressString(double LATITUDE, double LONGITUDE) {
         String strAdd = "";
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
@@ -965,7 +982,7 @@ public class UserDrawerActivity extends AppCompatActivity
                         notificationManager.cancelAll();
                         mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("Notification").setValue("0");
 
-                        Intent intent=new Intent(UserDrawerActivity.this,SP_Detail_Activity.class);
+                        Intent intent = new Intent(UserDrawerActivity.this, SP_Detail_Activity.class);
                         startActivity(intent);
 
                         //move intent here for sp details fragment
@@ -973,7 +990,7 @@ public class UserDrawerActivity extends AppCompatActivity
                         loadingDialog.show();
 
                         btn_send_request.setVisibility(View.GONE);
-                        Intent intent=new Intent(UserDrawerActivity.this,Reviews.class);
+                        Intent intent = new Intent(UserDrawerActivity.this, Reviews.class);
                         startActivity(intent);
                         finish();
 
@@ -983,17 +1000,17 @@ public class UserDrawerActivity extends AppCompatActivity
                     } else if (dataFB.equals("SPR")) {
                         loadingDialog.show();
                         btn_send_request.setVisibility(View.GONE);
-                    }else if (dataFB.equals("SPC")) {
+                    } else if (dataFB.equals("SPC")) {
                         loadingDialog.show();
                         btn_send_request.setVisibility(View.GONE);
 
-                        SharedPreferences sharedPreferencesSPData = getSharedPreferences("SpData",MODE_PRIVATE);
-                        String sp_lat=sharedPreferencesSPData.getString("sp_lat","");
-                        String sp_lng=sharedPreferencesSPData.getString("sp_lng","");
-                        LatLng latLng=new LatLng(Double.valueOf(sp_lat),Double.valueOf(sp_lng));
+                        SharedPreferences sharedPreferencesSPData = getSharedPreferences("SpData", MODE_PRIVATE);
+                        String sp_lat = sharedPreferencesSPData.getString("sp_lat", "");
+                        String sp_lng = sharedPreferencesSPData.getString("sp_lng", "");
+                        LatLng latLng = new LatLng(Double.valueOf(sp_lat), Double.valueOf(sp_lng));
 
                         mMap.addMarker(new MarkerOptions().position(latLng).title("Your Service Provider Location"));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,17), 2000, null);
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17), 2000, null);
                         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 17));
 
                     }
@@ -1006,12 +1023,13 @@ public class UserDrawerActivity extends AppCompatActivity
             }
         });
     }
-    public void sp_data(){
+
+    public void sp_data() {
         mDatabase.child("User").child(sharedPreferencesFB_user.getString("id", "")).child("USER Data").child("bookingDetails").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
-                  String  Fbridedetails = (String) dataSnapshot.getValue().toString();
+                    String Fbridedetails = (String) dataSnapshot.getValue().toString();
                     Fbridedetails.replace("\"", "");
                     Fbridedetails.replace("/", "");
                     Log.e("tag321", Fbridedetails);
@@ -1025,9 +1043,9 @@ public class UserDrawerActivity extends AppCompatActivity
                             Log.e("DropLocation = ", objjsaon.getString("image"));
                             Log.e("PickUpLocation = ", objjsaon.getString("sp_location"));
                             Log.e("pickUpLat = ", objjsaon.getString("sp_lat"));
-                            Log.e("pickUpLng = ", objjsaon.getString("sp_lng"));;
+                            Log.e("pickUpLng = ", objjsaon.getString("sp_lng"));
+                            ;
                             Log.e("riderFbid = ", objjsaon.getString("myFb"));
-
 
 
                             double lat = objjsaon.getDouble("DropLat");
